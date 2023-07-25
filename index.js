@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
+
+const logger = require("./configs/logger");
 const connect = require("./configs/db");
 const mealPlanController = require("./controllers/plan.controller")
 const PORT = process.env.port ?? 5000;
@@ -24,12 +26,13 @@ app.get("*", function(_, res) {
 
 app.listen(PORT, async () => {
     try {
-        console.log(`Attempting to connect to ${DB_URL}...`);
+        logger.info(`Attempting to connect to ${DB_URL}...`);
         await connect({
             url: DB_URL
         });
-        console.log(`Listening at ${PORT}`);
-    } catch (e) {
-        console.log(e);
+        logger.info(`Listening at ${PORT}`);
+    } catch (error) {
+        logger.error(error);
+        process.exit(1);
     }
 });
