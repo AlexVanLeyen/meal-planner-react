@@ -50,7 +50,8 @@ const config: Configuration = {
     plugins: [
         new HtmlWebpackPlugin({
             title: "Meal Planning App",
-            template: path.join(__dirname, "public", "index.html")
+            template: path.join(__dirname, "public", "index.html"),
+            favicon: path.join(__dirname, "public", "favicon.ico")
         }),
         new ESLintPlugin({
             extensions: ["js", "jsx", "ts", "tsx"]
