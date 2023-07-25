@@ -1,10 +1,12 @@
 import React from "react";
+import { Routes, Route } from 'react-router-dom';
+import { Home } from './pages/home';
 import "./theme/app.css";
 
 const App = () => (
-    <h1 className="text-primary text-4xl font-bold">
-        Hello World
-    </h1>
+    <Routes>
+        <Route path="/" element={<Home/>} />
+    </Routes>
 );
 
 export default App
