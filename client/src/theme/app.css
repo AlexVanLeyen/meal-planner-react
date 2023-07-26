@@ -33,10 +33,10 @@ td, th {
     @apply align-text-top;
     @apply border-secondary;
     @apply border-solid;
-}
 
-td:not(:last-of-type), th:not(:last-of-type) {
-    @apply border-r-2
+    &:not(:last-of-type) {
+        @apply border-r-2
+    }
 }
 
 th {
@@ -44,28 +44,36 @@ th {
     @apply border-b-2
 }
 
-td .plan {
+.plan {
     @apply p-2;
     @apply flex;
     @apply flex-col;
     @apply gap-2;
+
+    &:not(:last-of-type) {
+        @apply border-b;
+        @apply border-secondary;
+        @apply border-dashed;
+    }
+
+    .name::before {
+        content: attr(data-type);
+        @apply capitalize;
+        @apply mr-2;
+        @apply font-bold;
+        @apply text-secondary;
+    }
+
+    .notes {
+        @apply hidden;
+
+        &[data-show=true] {
+            @apply block;
+        }
+    }
 }
 
-td .plan-name::before {
-    content: attr(data-type);
-    @apply capitalize;
-    @apply mr-2;
-    @apply font-bold;
-    @apply text-secondary;
-}
-
-td .plan:not(:last-of-type) {
-    @apply border-b;
-    @apply border-secondary;
-    @apply border-dashed;
-}
-
-.plan-note {
+.note {
     @apply border;
     @apply border-primary;
     @apply rounded;
@@ -74,13 +82,13 @@ td .plan:not(:last-of-type) {
 
     @apply flex;
     @apply items-start;
-}
 
-.plan-note .note-icon {
-    @apply w-16;
-    @apply pt-1;
-}
+    .icon {
+        @apply w-16;
+        @apply pt-1;
+    }
 
-.plan-note .note-message {
-    @apply text-sm;
+    .message {
+        @apply text-sm;
+    }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { startOfWeek, eachDayOfInterval, addDays, format } from 'date-fns';
 import mealTypes from './mealTypes.json';
-import { FaNoteSticky } from 'react-icons/fa6';
+import { Note } from '../../Note';
 
 interface PlanTableProps {
 
@@ -54,13 +54,12 @@ export const PlanTable: React.FC<PlanTableProps> = () => {
                         <td className="px-4">
                             { mealTypes.map((type: string) => (
                                 <div className="plan" key={type}>
-                                    <div className="plan-name" data-type={type.charAt(0)}>{ plans.find((plan) => new Date(plan.date).getDay() == day.getDay())?.meals.find((meal) => meal.type == type)?.name }</div>
-                                    { plans.find((plan) => new Date(plan.date).getDay() == day.getDay())?.meals.find((meal) => meal.type == type)?.notes?.map((note, index) => (
-                                        <div key={index} className="plan-note">
-                                            <div className="note-icon"><FaNoteSticky /></div>
-                                            <div className="note-message">{note.message}</div>
-                                        </div>
-                                    ))}
+                                    <div className="name" data-type={type.charAt(0)}>{ plans.find((plan) => new Date(plan.date).getDay() == day.getDay())?.meals.find((meal) => meal.type == type)?.name }</div>
+                                    <div className="notes" data-show={false}>
+                                        { plans.find((plan) => new Date(plan.date).getDay() == day.getDay())?.meals.find((meal) => meal.type == type)?.notes?.map((note, index) => (
+                                            <Note {...note} key={index}/>
+                                        ))}
+                                    </div>
                                 </div>
                             )) }
                         </td>            
