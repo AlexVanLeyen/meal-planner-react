@@ -6,8 +6,8 @@ html, body {
     @apply h-screen;
     @apply overflow-hidden;
     @apply relative;
-    @apply bg-sky-50;
-    @apply text-sky-800;
+    @apply bg-background;
+    @apply text-primary;
 }
 
 #root {
@@ -17,13 +17,17 @@ html, body {
 .table-container {
     @apply border-2;
     @apply border-solid;
-    @apply border-sky-200;
+    @apply border-secondary;
     @apply rounded-lg;
+}
+
+thead {
+    @apply font-bold;
 }
 
 td, th {
     @apply align-text-top;
-    @apply border-sky-200;
+    @apply border-secondary;
     @apply border-solid;
 }
 
@@ -48,7 +52,7 @@ td .plan-name::before {
     @apply capitalize;
     @apply mr-2;
     @apply font-bold;
-    @apply text-sky-200;
+    @apply text-secondary;
 }
 
 tr:not(:last-of-type) td {
@@ -57,15 +61,15 @@ tr:not(:last-of-type) td {
 
 td .plan:not(:last-of-type) {
     @apply border-b;
-    @apply border-sky-500;
+    @apply border-secondary;
     @apply border-dashed;
 }
 
 .plan-note {
     @apply border;
-    @apply border-sky-800;
+    @apply border-primary;
     @apply rounded;
-    @apply bg-sky-100;
+    @apply bg-tertiary;
     @apply p-2;
 
     @apply flex;
