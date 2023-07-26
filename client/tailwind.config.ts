@@ -28,6 +28,12 @@ export default {
         secondary: colors.black,
         tertiary: colors.white,
         background: colors.white
+      },
+      "mono-slate": {
+        primary: colors.slate[800],
+        secondary: colors.slate[800],
+        tertiary: colors.slate[50],
+        background: colors.slate[50]
       }
 
     })
