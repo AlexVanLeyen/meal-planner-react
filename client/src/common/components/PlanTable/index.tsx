@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { startOfWeek, eachDayOfInterval, addDays, format } from 'date-fns';
 import mealTypes from './mealTypes.json';
-import { Note } from '../../Note';
+import { Plan, Meal, getMeal, getMealsForDay } from '../Meal';
 
-interface PlanTableProps {
+export interface PlanTable {}
 
-}
-
-export const PlanTable: React.FC<PlanTableProps> = () => {
-    const [plans] = useState([
+export const PlanTable: React.FC<PlanTable> = () => {
+    const [plans] = useState<Plan[]>([
         {
             date: new Date('2023-07-03'),
             meals: [
@@ -47,24 +45,23 @@ export const PlanTable: React.FC<PlanTableProps> = () => {
                     </tr>
                 </thead>
                 <tbody>
-                {daysOfWeek.map((day) => (
-                    <tr key={format(day, 'EEE')}>
-                        <td className="px-4">{format(day, 'EEE')}</td>
-                        <td className="px-4">{format(day, 'd')}</td>
-                        <td className="px-4">
-                            { mealTypes.map((type: string) => (
-                                <div className="plan" key={type}>
-                                    <div className="name" data-type={type.charAt(0)}>{ plans.find((plan) => new Date(plan.date).getDay() == day.getDay())?.meals.find((meal) => meal.type == type)?.name }</div>
-                                    <div className="notes" data-show={false}>
-                                        { plans.find((plan) => new Date(plan.date).getDay() == day.getDay())?.meals.find((meal) => meal.type == type)?.notes?.map((note, index) => (
-                                            <Note {...note} key={index}/>
-                                        ))}
-                                    </div>
-                                </div>
-                            )) }
-                        </td>            
-                    </tr>
-                ))}
+                {daysOfWeek.map((day) => {
+                    const meals = getMealsForDay(day, plans);
+                    const dayOfWeek = format(day, 'EEE');
+                    const dayOfMonth = format(day, 'd');
+                    return (
+                        <tr key={dayOfWeek}>
+                            <td className="px-4">{dayOfWeek}</td>
+                            <td className="px-4">{dayOfMonth}</td>
+                            <td className="px-4">
+                                { mealTypes.map((type: string) => {
+                                    const meal = getMeal(type, meals);
+                                    return <Meal key={`${dayOfWeek}-${type}`} {...meal}/>;
+                                })}
+                            </td>            
+                        </tr>
+                    );
+                })}
                 </tbody>
             </table>
         </div>

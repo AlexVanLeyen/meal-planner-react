@@ -44,7 +44,7 @@ th {
     @apply border-b-2
 }
 
-.plan {
+.meal {
     @apply p-2;
     @apply flex;
     @apply flex-col;
@@ -56,12 +56,23 @@ th {
         @apply border-dashed;
     }
 
-    .name::before {
+    .slot {
+        @apply flex;
+        @apply justify-between;
+        @apply items-center;
+        @apply gap-1;
+    }
+
+    .slot::before {
         content: attr(data-type);
         @apply capitalize;
         @apply mr-2;
         @apply font-bold;
         @apply text-secondary;
+    }
+
+    .name {
+        @apply grow;
     }
 
     .notes {
@@ -70,6 +81,10 @@ th {
         &[data-show=true] {
             @apply block;
         }
+    }
+
+    .empty {
+        @apply italic;
     }
 }
 
@@ -90,5 +105,12 @@ th {
 
     .message {
         @apply text-sm;
+    }
+}
+
+.editable {
+    & * {
+        @apply w-full;
+        @apply bg-transparent;
     }
 }
