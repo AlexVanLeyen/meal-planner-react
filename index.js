@@ -6,8 +6,13 @@ require("dotenv").config();
 const logger = require("./configs/logger");
 const connect = require("./configs/db");
 const mealPlanController = require("./controllers/plan.controller")
-const PORT = process.env.port ?? 5000;
-const DB_URL = process.env.DB_URL;
+const PORT = process.env.port ?? 3000;
+// == Database Config ==
+const DB_HOST = process.env.DB_HOST;
+const DB_USERNAME = process.env.DB_USERNAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_PORT = process.env.DB_PORT;
+// ==
 
 const app = express();
 app.use(express.json());
@@ -26,11 +31,14 @@ app.get("*", function(_, res) {
 
 app.listen(PORT, async () => {
     try {
-        logger.info(`Attempting to connect to ${DB_URL}...`);
+        logger.info("Attempting to connect to database...");
         await connect({
-            url: DB_URL
+            host: DB_HOST,
+            username: DB_USERNAME,
+            password: DB_PASSWORD,
+            port: DB_PORT
         });
-        logger.info(`Listening at ${PORT}`);
+        logger.info(`App listening @ http://localhost:${PORT}`);
     } catch (error) {
         logger.error(error);
         process.exit(1);
