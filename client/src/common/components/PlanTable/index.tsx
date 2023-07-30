@@ -1,37 +1,16 @@
 import React, { useState } from 'react';
 import { startOfWeek, eachDayOfInterval, addDays, format } from 'date-fns';
-import mealTypes from './mealTypes.json';
 import { Plan, Meal, getMeal, getMealsForDay } from '../Meal';
 
-export interface PlanTable {}
+export interface PlanTable {
+    plans?: Plan[],
+    date?: Date,
+    mealTypes?: string[]
+}
 
-export const PlanTable: React.FC<PlanTable> = () => {
-    const [plans] = useState<Plan[]>([
-        {
-            date: new Date('2023-07-03'),
-            meals: [
-                {
-                    type: "breakfast",
-                    name: "buttered toast, avacado, omlette",
-                    notes: [
-                        { message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ultricies a nisi a scelerisque. Mauris et pharetra nulla. Praesent tincidunt libero a nisl dapibus, nec pellentesque neque mattis. Nulla facilisi. Nunc sagittis odio ultrices tellus aliquet, ut aliquet lorem imperdiet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti. Donec mattis commodo volutpat. In in nisi purus. Nam tempus pulvinar pharetra. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent ac iaculis nulla, a luctus sapien. In at sagittis erat." },
-                    ]  
-                },
-                {
-                    type: "lunch",
-                    name: "spaghetti",
-                    notes: []
-                },
-                {
-                    type: "dinner",
-                    name: "chicken soup",
-                    notes: []
-
-                }
-            ]
-        },
-    ]);
-    const [firstDay] = useState(startOfWeek(new Date(), { weekStartsOn: 1 }));
+export const PlanTable: React.FC<PlanTable> = props => {
+    const { plans = [], date = new Date, mealTypes } = props;
+    const [firstDay] = useState(startOfWeek(date, { weekStartsOn: 1 }));
     const daysOfWeek = eachDayOfInterval({ start: firstDay, end: addDays(firstDay, 6) });
 
     return (
@@ -54,11 +33,22 @@ export const PlanTable: React.FC<PlanTable> = () => {
                             <td className="px-4">{dayOfWeek}</td>
                             <td className="px-4">{dayOfMonth}</td>
                             <td className="px-4">
-                                { mealTypes.map((type: string) => {
+
+                                {/* If meal types are defined, render meals in order of
+                                meal types. */}
+                                { mealTypes?.map((type: string) => {
                                     const meal = getMeal(type, meals);
                                     return <Meal key={`${dayOfWeek}-${type}`} {...meal}/>;
-                                })}
-                            </td>            
+                                }) }
+
+                                {/* // If meal types are not defined, render all meals for the
+                                // day in order of entry. */}
+                                { (!mealTypes || mealTypes.length == 0) && (
+                                    meals.map((meal, index) => (
+                                        <Meal key={`${dayOfWeek}-${index}`} {...meal} />
+                                    )
+                                )) }
+                            </td>
                         </tr>
                     );
                 })}
