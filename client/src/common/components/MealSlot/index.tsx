@@ -21,7 +21,11 @@ export function getMeal(type: string, meals: Meal[]): Meal {
     return meals.find((meal) => meal.type == type) ?? { type, name: "", notes: [] };
 }
 
-export const Meal: React.FC<Meal> = props => {
+export type MealSlot = Meal & {
+    onChange?: (meal: Meal) => never
+};
+
+export const MealSlot: React.FC<MealSlot> = props => {
     const [isShowingNotes, setIsShowNotes] = useState(false);
     const [name, setName] = useState(props.name);
 

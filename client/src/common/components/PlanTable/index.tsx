@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { startOfWeek, eachDayOfInterval, addDays, format } from 'date-fns';
-import { Plan, Meal, getMeal, getMealsForDay } from '../Meal';
+import { Plan, MealSlot, getMeal, getMealsForDay } from '../MealSlot';
 
-export interface PlanTable {
-    plans?: Plan[],
+export interface Options {
     date?: Date,
     mealTypes?: string[]
+}
+
+export type PlanTable = Options & {
+    plans?: Plan[],
 }
 
 export const PlanTable: React.FC<PlanTable> = props => {
@@ -38,14 +41,14 @@ export const PlanTable: React.FC<PlanTable> = props => {
                                 meal types. */}
                                 { mealTypes?.map((type: string) => {
                                     const meal = getMeal(type, meals);
-                                    return <Meal key={`${dayOfWeek}-${type}`} {...meal}/>;
+                                    return <MealSlot key={`${dayOfWeek}-${type}`} {...meal}/>;
                                 }) }
 
                                 {/* // If meal types are not defined, render all meals for the
                                 // day in order of entry. */}
                                 { (!mealTypes || mealTypes.length == 0) && (
                                     meals.map((meal, index) => (
-                                        <Meal key={`${dayOfWeek}-${index}`} {...meal} />
+                                        <MealSlot key={`${dayOfWeek}-${index}`} {...meal} />
                                     )
                                 )) }
                             </td>
