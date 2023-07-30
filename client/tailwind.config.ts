@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require("tailwindcss/colors");
+
 const { createThemes } = require("tw-colors");
 
 export default {
@@ -7,7 +8,15 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}", 
     "./public/index.html"],
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        xs: "0.25em",
+        sm: "0.75em",
+        md: "1em",
+        lg: "1.5em",
+        xl: "2em"
+      }
+    },
   },
   plugins: [
     createThemes({
