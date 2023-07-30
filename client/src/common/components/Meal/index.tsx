@@ -25,7 +25,7 @@ export const Meal: React.FC<Meal> = props => {
     const [isShowingNotes, setIsShowNotes] = useState(false);
     const [name, setName] = useState(props.name);
 
-    const handleClickAddNote = useCallback(() => {
+    const handleClickOpenNote = useCallback(() => {
         setIsShowNotes(!isShowingNotes);
     }, [isShowingNotes]);
 
@@ -39,7 +39,7 @@ export const Meal: React.FC<Meal> = props => {
                 <Editable value={name} className="name">
                     <input type="text" onChange={handleOnChangeName} value={name}/>
                 </Editable>
-                <button type="button" onClick={handleClickAddNote}>+</button>
+                <button type="button" onClick={handleClickOpenNote}>+</button>
             </div>
             <div className="notes" data-show={isShowingNotes}>
                 { props.notes.length ? props.notes.map((note, index) => (
