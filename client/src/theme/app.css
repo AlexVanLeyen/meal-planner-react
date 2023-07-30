@@ -14,11 +14,17 @@ html, body {
     @apply h-full;
 }
 
+.page {
+    @apply container;
+    @apply flex flex-col gap-md;
+    @apply min-w-full h-full;
+    @apply p-md;
+    @apply overflow-auto;
+        
+}
+
 .table-container {
-    @apply border-2;
-    @apply border-solid;
-    @apply border-secondary;
-    @apply rounded-lg;
+    @apply border-2 border-solid border-secondary rounded-lg;
 }
 
 thead {
@@ -31,8 +37,7 @@ tr:not(:last-of-type) td {
 
 td, th {
     @apply align-text-top;
-    @apply border-secondary;
-    @apply border-solid;
+    @apply border-secondary border-solid;
 
     &:not(:last-of-type) {
         @apply border-r-2
@@ -45,30 +50,21 @@ th {
 }
 
 .meal {
-    @apply p-2;
-    @apply flex;
-    @apply flex-col;
-    @apply gap-2;
+    @apply p-xs;
+    @apply flex flex-col gap-xs;
 
     &:not(:last-of-type) {
-        @apply border-b;
-        @apply border-secondary;
-        @apply border-dashed;
+        @apply border-b border-secondary border-dashed;
     }
 
     .slot {
-        @apply flex;
-        @apply justify-between;
-        @apply items-center;
-        @apply gap-1;
+        @apply flex justify-between items-center gap-xs;
     }
 
     .slot::before {
         content: attr(data-type);
-        @apply capitalize;
-        @apply mr-2;
-        @apply font-bold;
-        @apply text-secondary;
+        @apply capitalize font-bold text-secondary;
+        @apply mr-xs;
     }
 
     .name {
@@ -89,14 +85,10 @@ th {
 }
 
 .note {
-    @apply border;
-    @apply border-primary;
-    @apply rounded;
+    @apply border border-primary rounded;
     @apply bg-tertiary;
-    @apply p-2;
-
-    @apply flex;
-    @apply items-start;
+    @apply p-xs;
+    @apply flex items-start;
 
     .icon {
         @apply w-16;
@@ -114,3 +106,25 @@ th {
         @apply bg-transparent;
     }
 }
+
+label {
+    @apply font-bold;
+    @apply flex gap-xs justify-start items-center;
+}
+
+
+.select {
+    @apply border-2 border-solid border-secondary rounded;
+    @apply p-xs;
+
+    
+    select {
+        @apply border-0;
+        @apply text-primary font-normal capitalize;
+        @apply bg-background;
+        @apply outline-none;
+    }
+
+}
+
+
