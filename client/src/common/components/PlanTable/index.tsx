@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { startOfWeek, eachDayOfInterval, addDays, format } from 'date-fns';
-import { Plan, MealSlot, getMeal, getMealsForDay } from '../MealSlot';
+import { MealSlot, getMeal, getMealsForDay } from '@/common/components/MealSlot';
+import { PlanModel, MealModel } from '@/common/models';
 
 export interface Options {
     date?: Date,
@@ -8,13 +9,17 @@ export interface Options {
 }
 
 export type PlanTable = Options & {
-    plans?: Plan[],
+    plans?: PlanModel[],
 }
 
 export const PlanTable: React.FC<PlanTable> = props => {
     const { plans = [], date = new Date, mealTypes } = props;
     const [firstDay] = useState(startOfWeek(date, { weekStartsOn: 1 }));
     const daysOfWeek = eachDayOfInterval({ start: firstDay, end: addDays(firstDay, 6) });
+
+    const handleChange = useCallback((meal: MealModel) => {
+        console.log(meal);
+    }, [])
 
     return (
         <div className="table-container">
@@ -48,7 +53,11 @@ export const PlanTable: React.FC<PlanTable> = props => {
                                 // day in order of entry. */}
                                 { (!mealTypes || mealTypes.length == 0) && (
                                     meals.map((meal, index) => (
-                                        <MealSlot key={`${dayOfWeek}-${index}`} {...meal} />
+                                        <MealSlot
+                                            key={`${dayOfWeek}-${index}`}
+                                            {...meal}
+                                            onChange={handleChange}
+                                         />
                                     )
                                 )) }
                             </td>
