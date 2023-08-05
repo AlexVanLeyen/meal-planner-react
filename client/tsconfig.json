@@ -1,17 +1,21 @@
 {
     "compilerOptions": {
-        "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
-        "skipLibCheck": true,
+        "baseUrl": "src",
         "esModuleInterop": true,
-        "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true,
         "isolatedModules": true,
-        "noEmit": true,
         "jsx": "react",
-        "sourceMap": true
+        "lib": ["DOM", "DOM.Iterable", "ESNext"],
+        "noEmit": true,
+        "paths": {
+            "@/*": ["*"]
+        },
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strict": true,
     },
     "include": ["src"],
 }
