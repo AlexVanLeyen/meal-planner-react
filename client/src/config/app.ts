@@ -1,4 +1,6 @@
-export const version = process.env.APP_VERSION ?? "undefined";
+declare const REACT_APP_VERSION: string;
+
+export const version = REACT_APP_VERSION ?? "undefined";
 
 export default {
     version
