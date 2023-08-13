@@ -1,5 +1,6 @@
 const express = require("express");
 const Plan = require("../models/plan.model");
+const { isValidIdentifier } = require("../utils/database");
 const router = express.Router();
 
 /**
@@ -27,6 +28,11 @@ router.get("", async (_, res) => {
  * }
  */
 router.get("/:id", async (req, res) => {
+    const { id } = req.params;
+    if (!isValidIdentifier(id)) {
+        return res.status(404).send();
+    }
+
     try {
         const plans = await Plan.findOne({ _id: req.params.id });
         return res.send(plans);
