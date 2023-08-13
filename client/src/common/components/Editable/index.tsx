@@ -18,18 +18,14 @@ export const Editable: React.FC<Editable> = props => {
         setIsEditing(true);
     }, []);
 
-    const onChange = useCallback(() => {
-        console.log("change event called");
-    }, []);
-
     return (
         <section className={classNames(props.className, "editable")}>
         { isEditing ? ( 
-            <div onBlur={onBlur} onChange={onChange}>
+            <div onBlur={onBlur} className="child-container">
                 {props.children}
             </div>
         ) : (
-            <div onClick={onClick}>
+            <div onClick={onClick} className="text-container">
                 {value}
             </div>
         )}
