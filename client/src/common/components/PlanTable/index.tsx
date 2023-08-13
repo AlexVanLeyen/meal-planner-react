@@ -9,17 +9,24 @@ export interface Options {
 }
 
 export type PlanTable = Options & {
-    plans?: PlanModel[],
+    plan: PlanModel,
+    onChange?: (meal: MealModel) => void
 }
 
 export const PlanTable: React.FC<PlanTable> = props => {
-    const { plans = [], date = new Date, mealTypes } = props;
+    const {
+        plan,
+        date = new Date,
+        onChange,
+        mealTypes
+    } = props;
+
     const [firstDay] = useState(startOfWeek(date, { weekStartsOn: 1 }));
     const daysOfWeek = eachDayOfInterval({ start: firstDay, end: addDays(firstDay, 6) });
 
     const handleChange = useCallback((meal: MealModel) => {
-        console.log(meal);
-    }, [])
+        onChange?.(meal)
+    }, [onChange])
 
     return (
         <div className="table-container">
@@ -33,7 +40,7 @@ export const PlanTable: React.FC<PlanTable> = props => {
                 </thead>
                 <tbody>
                 {daysOfWeek.map((day) => {
-                    const meals = getMealsForDay(day, plans);
+                    const meals = getMealsForDay(day, plan.meals);
                     const dayOfWeek = format(day, 'EEE');
                     const dayOfMonth = format(day, 'd');
                     return (

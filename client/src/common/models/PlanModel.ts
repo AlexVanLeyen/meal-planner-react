@@ -3,12 +3,19 @@ export type NoteModel = {
 }
 
 export type MealModel = {
-    name: string;
+    date: Date;
     type: string;
+    name: string;
     notes: NoteModel[];
 }
 
+export type PlanAuthor = {
+    name: string;
+}
+
 export type PlanModel = {
-    date: Date;
+    name: string;
+    description: string;
+    author: PlanAuthor;
     meals: MealModel[];
 }

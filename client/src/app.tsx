@@ -1,12 +1,17 @@
 import React from "react";
-import { Routes, Route } from 'react-router-dom';
-import { Home } from './pages/home';
-import "./theme/app.css";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import Router from "./router";
+import "@/theme/app.css";
+import { Loading } from "./common/components/Loading";
+
+const queryClient = new QueryClient();
 
 const App = () => (
-    <Routes>
-        <Route path="/" element={<Home/>} />
-    </Routes>
+    <React.Suspense fallback={<Loading />}>
+        <QueryClientProvider client={queryClient} >
+            <Router />
+        </QueryClientProvider>
+    </React.Suspense>
 );
 
 export default App

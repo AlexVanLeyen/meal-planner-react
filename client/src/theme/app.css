@@ -12,6 +12,55 @@ html, body {
 
 #root {
     @apply h-full;
+    @apply flex;
+}
+
+#navigation {
+    @apply border-r border-solid border-primary;
+    @apply bg-background;
+    
+    .container {
+        @apply p-sm;
+        @apply flex;
+        @apply flex-col;
+        @apply h-full;
+        @apply justify-between;
+        @apply items-center;
+    }
+
+    .version {
+        &::before {
+            content: "v";
+            @apply pr-xs;
+        }
+    }
+
+    menu {
+        @apply flex;
+        @apply flex-col;
+        @apply items-start;
+        @apply gap-sm;
+    }
+
+    li a {
+        @apply flex;
+        @apply gap-sm;
+        @apply items-center;
+    }
+}
+
+#main-content {
+    @apply grow;
+}
+
+input[type=text] {
+    @apply outline-none;
+    @apply bg-transparent;
+    @apply px-1;
+    &:focus-visible {
+        @apply border border-solid border-secondary rounded;
+    }
+    
 }
 
 .page {
@@ -69,6 +118,7 @@ th {
 
     .name {
         @apply grow;
+        @apply flex self-stretch items-stretch;
     }
 
     .notes {
@@ -125,6 +175,16 @@ label {
         @apply outline-none;
     }
 
+}
+
+.loading {
+    @apply flex items-center justify-items-center;
+    @apply h-full;
+
+    .icon {
+        @apply animate-bounce;
+        @apply w-8 h-8;
+    }
 }
 
 

@@ -1,26 +1,37 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Note } from "../Note";
 import { Editable } from '../Editable';
-import { PlanModel, MealModel } from '@/common/models'
+import { MealModel } from '@/common/models'
 
-export function getMealsForDay(day: Date, plans: PlanModel[]): MealModel[] {
-    return plans.find(plan => new Date(plan.date).getDay() == day.getDay())?.meals ?? []; 
+export function getMealsForDay(day: Date, meals:MealModel[]): MealModel[] {
+    return meals.reduce<MealModel[]>((prev, next) => {
+        if (new Date(next.date).getDay() == day.getDay()) {
+            prev.push(next);
+        }
+        return prev;
+    }, [])
 }
 
 export function getMeal(type: string, meals: MealModel[]): MealModel {
-    return meals.find((meal) => meal.type == type) ?? { type, name: "", notes: [] };
+    return meals.find((meal) => meal.type == type) ?? { 
+        type,
+        date: new Date(),
+        name: "",
+        notes: [] 
+    };
 }
 
 const TIMEOUT_MS = 1000;
 
 export type MealSlot = MealModel & {
     onChange?: (meal: MealModel) => void
+    timeout?: number
 };
 
 export const MealSlot: React.FC<MealSlot> = props => {
     const [isShowingNotes, setIsShowNotes] = useState(false);
     const [name, setName] = useState(props.name);
-    const { type, notes, onChange } = props;
+    const { onChange, timeout = TIMEOUT_MS, ...meal } = props;
 
     const handleClickOpenNote = useCallback(() => {
         setIsShowNotes(!isShowingNotes);
@@ -32,27 +43,25 @@ export const MealSlot: React.FC<MealSlot> = props => {
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            onChange?.({
-                name,
-                type,
-                notes
-            })
-        }, TIMEOUT_MS);
+            onChange?.({ ...meal, name })
+        }, timeout);
         return () => {
             clearTimeout(timeoutId);
         }
-    }, [name, type, notes, onChange])
+    }, [meal, name, onChange, timeout])
 
     return (
         <div className="meal">
-            <div className="slot" data-type={type.charAt(0)}>
+            <div className="slot" data-type={meal.type.charAt(0)}>
                 <Editable value={name} className="name">
-                    <input type="text" onChange={handleOnChangeName} value={name}/>
+                    <input autoFocus type="text" onChange={handleOnChangeName} value={name}/>
                 </Editable>
-                <button type="button" onClick={handleClickOpenNote}>+</button>
+                <button type="button" onClick={handleClickOpenNote}>
+                    {isShowingNotes ? "-" : "+" }
+                </button>
             </div>
             <div className="notes" data-show={isShowingNotes}>
-                { notes.length ? notes.map((note, index) => (
+                { meal.notes.length ? meal.notes.map((note, index) => (
                     <Note {...note} key={index}/>
                 )) : (
                     <div className="empty">No Notes</div>
