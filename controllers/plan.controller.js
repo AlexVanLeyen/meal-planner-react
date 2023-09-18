@@ -51,11 +51,10 @@ router.get("/:id", async (req, res) => {
  *   
  */
 router.post("", async (req, res) => {
-    const plan = req.body;
     try {
-        const newPlan = new Plan(plan);
-        await newPlan.save();
-        return res.send(plan);
+        const plan = new Plan(req.body);
+        const newPlan = await plan.save();
+        return res.send(newPlan);
     } catch (error) {
         return res.status(500).send(error.message);
     }
@@ -69,7 +68,7 @@ router.post("", async (req, res) => {
  *  500: String
  * }
  */
-router.put("/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
     const plan = req.body;
     try {
         const updatedPlan = await Plan.findByIdAndUpdate(req.params.id, plan, { returnDocument: "after"});
