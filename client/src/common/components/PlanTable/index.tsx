@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { startOfWeek, eachDayOfInterval, addDays, format } from 'date-fns';
 import { MealSlot, getMeal, getMealsForDay } from '@/common/components/MealSlot';
 import { PlanModel, MealModel } from '@/common/models';
@@ -9,14 +9,25 @@ export interface Options {
 }
 
 export type PlanTable = Options & {
-    plan: PlanModel,
+    plan?: PlanModel,
     onChange?: (meal: MealModel) => void
+}
+
+function createPlan(): PlanModel {
+    return {
+        name: "",
+        description: "",
+        author: {
+            name: ""
+        },
+        meals: []
+    }
 }
 
 export const PlanTable: React.FC<PlanTable> = props => {
     const {
-        plan,
-        date = new Date,
+        plan = createPlan(),
+        date = new Date(),
         onChange,
         mealTypes
     } = props;
@@ -24,17 +35,13 @@ export const PlanTable: React.FC<PlanTable> = props => {
     const [firstDay] = useState(startOfWeek(date, { weekStartsOn: 1 }));
     const daysOfWeek = eachDayOfInterval({ start: firstDay, end: addDays(firstDay, 6) });
 
-    const handleChange = useCallback((meal: MealModel) => {
-        onChange?.(meal)
-    }, [onChange])
-
     return (
         <div className="table-container">
             <table className="min-w-full">
                 <thead className="font-bold text-left">
                     <tr>
-                        <th className="px-4 w-8">Date</th>
                         <th className="px-4 w-8">Day</th>
+                        <th className="px-4 w-8">Date</th>
                         <th className="px-4">Meal Plan</th>
                     </tr>
                 </thead>
@@ -43,6 +50,7 @@ export const PlanTable: React.FC<PlanTable> = props => {
                     const meals = getMealsForDay(day, plan.meals);
                     const dayOfWeek = format(day, 'EEE');
                     const dayOfMonth = format(day, 'd');
+                    
                     return (
                         <tr key={dayOfWeek}>
                             <td className="px-4">{dayOfWeek}</td>
@@ -52,8 +60,17 @@ export const PlanTable: React.FC<PlanTable> = props => {
                                 {/* If meal types are defined, render meals in order of
                                 meal types. */}
                                 { mealTypes?.map((type: string) => {
-                                    const meal = getMeal(type, meals);
-                                    return <MealSlot key={`${dayOfWeek}-${type}`} {...meal}/>;
+                                    const meal = getMeal(type, meals) ?? { 
+                                        type,
+                                        date: day,
+                                        name: "",
+                                        notes: [] 
+                                    };
+                                    return <MealSlot
+                                        key={`${dayOfWeek}-${type}`}
+                                        {...meal}
+                                        onChange={onChange}
+                                    />;
                                 }) }
 
                                 {/* // If meal types are not defined, render all meals for the
@@ -63,7 +80,7 @@ export const PlanTable: React.FC<PlanTable> = props => {
                                         <MealSlot
                                             key={`${dayOfWeek}-${index}`}
                                             {...meal}
-                                            onChange={handleChange}
+                                            onChange={onChange}
                                          />
                                     )
                                 )) }

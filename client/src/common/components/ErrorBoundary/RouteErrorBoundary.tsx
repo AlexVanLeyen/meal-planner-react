@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
-const ErrorBoundary: React.FC = () => {
+export const RouteErrorBoundary: React.FC = () => {
     const error = useRouteError();
 
     if (isRouteErrorResponse(error) && error.status === 404) {
@@ -10,5 +10,3 @@ const ErrorBoundary: React.FC = () => {
 
     throw error;
 };
-
-export default ErrorBoundary

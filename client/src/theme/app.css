@@ -2,12 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-    @apply h-screen;
-    @apply overflow-hidden;
-    @apply relative;
-    @apply bg-background;
-    @apply text-primary;
+@layer base {
+    html, body {
+        @apply h-screen;
+        @apply overflow-hidden;
+        @apply relative;
+        @apply bg-background;
+        @apply text-primary;
+    }
+
+    input[type=text] {
+        @apply bg-transparent;
+        @apply border border-solid border-secondary rounded;
+        @apply text-sm;
+        &:focus-visible {
+            @apply outline-0;    
+        }
+        
+    }
+}
+
+@layer components {
+    .btn {
+        @apply rounded;
+        @apply p-sm;
+        @apply w-fit;
+        @apply block;
+
+        &.primary {
+            @apply text-tertiary;
+            @apply bg-primary;
+        }
+
+        &.btn-sm {
+            @apply py-0 px-sm;
+            @apply text-sm;
+        }
+    }
 }
 
 #root {
@@ -53,22 +84,19 @@ html, body {
     @apply grow;
 }
 
-input[type=text] {
-    @apply outline-none;
-    @apply bg-transparent;
-    @apply px-1;
-    &:focus-visible {
-        @apply border border-solid border-secondary rounded;
-    }
-    
-}
-
 .page {
     @apply container;
     @apply flex flex-col gap-md;
     @apply min-w-full h-full;
     @apply p-md;
     @apply overflow-auto;
+
+    .title {
+        @apply text-3xl;
+        @apply font-extrabold;
+        @apply tracking-tight;
+
+    }
         
 }
 

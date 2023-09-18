@@ -27,7 +27,7 @@ export const requestCreation = <body = unknown>(url: string, body: body) =>
     request(url, { method: "POST", body: JSON.stringify(body) });
 
 export const requestUpdate = <body = unknown>(url: string, body: body) =>
-    request(url, { method: "PUT", body: JSON.stringify(body) });
+    request(url, { method: "PATCH", body: JSON.stringify(body) });
 
 export const requestDelete = (url: string) =>
     request(url, { method: "DELETE" });

@@ -15,7 +15,7 @@ export type PlanAuthor = {
 
 export type PlanModel = {
     name: string;
-    description: string;
+    description?: string;
     author: PlanAuthor;
     meals: MealModel[];
 }
