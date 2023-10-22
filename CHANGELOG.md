@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Can create plans.
 - Plans can be named and re-named.
 - Can add meals to a plan.
+- ? Can add notes to plans
+- can delete plans?
+- can delete notes?
 
 ### Changed
 

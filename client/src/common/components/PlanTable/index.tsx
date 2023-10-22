@@ -1,6 +1,8 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import { startOfWeek, eachDayOfInterval, addDays, format } from 'date-fns';
-import { MealSlot, getMeal, getMealsForDay } from '@/common/components/MealSlot';
+import { MealSlot } from '@/common/components/MealSlot';
+import { getMeal, getMealsForDay } from '@/common/models/PlanModel';
 import { PlanModel, MealModel } from '@/common/models';
 
 export interface Options {
@@ -56,34 +58,37 @@ export const PlanTable: React.FC<PlanTable> = props => {
                             <td className="px-4">{dayOfWeek}</td>
                             <td className="px-4">{dayOfMonth}</td>
                             <td className="px-4">
-
-                                {/* If meal types are defined, render meals in order of
-                                meal types. */}
-                                { mealTypes?.map((type: string) => {
-                                    const meal = getMeal(type, meals) ?? { 
-                                        type,
-                                        date: day,
-                                        name: "",
-                                        notes: [] 
-                                    };
-                                    return <MealSlot
-                                        key={`${dayOfWeek}-${type}`}
-                                        {...meal}
-                                        onChange={onChange}
-                                    />;
-                                }) }
-
-                                {/* // If meal types are not defined, render all meals for the
-                                // day in order of entry. */}
-                                { (!mealTypes || mealTypes.length == 0) && (
-                                    meals.map((meal, index) => (
-                                        <MealSlot
-                                            key={`${dayOfWeek}-${index}`}
+                                { 
+                                    // If meal types are defined, render meals in order of
+                                    // meal types.
+                                    mealTypes?.map((type: string) => {
+                                        const meal = getMeal(type, meals) ?? { 
+                                            type,
+                                            date: day,
+                                            name: "",
+                                            notes: [] 
+                                        };
+                                        return <MealSlot
+                                            key={`${dayOfWeek}-${type}`}
                                             {...meal}
                                             onChange={onChange}
-                                         />
-                                    )
-                                )) }
+                                        />;
+                                    })
+                                }
+
+                                {
+                                    // If meal types are not defined, render all meals for the
+                                    // day in order of entry
+                                    (!mealTypes || mealTypes.length == 0) && (
+                                        meals.map((meal, index) => (
+                                            <MealSlot
+                                                key={`${dayOfWeek}-${index}`}
+                                                {...meal}
+                                                onChange={onChange}
+                                            />
+                                        )
+                                    ))
+                                }
                             </td>
                         </tr>
                     );

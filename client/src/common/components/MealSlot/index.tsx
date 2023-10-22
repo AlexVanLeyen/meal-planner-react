@@ -1,29 +1,15 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Note } from "../Note";
 import { Editable } from '../Editable';
 import { MealModel } from '@/common/models'
-
-export function getMealsForDay(day: Date, meals:MealModel[]): MealModel[] {
-    return meals.reduce<MealModel[]>((prev, next) => {
-        if (new Date(next.date).getDay() == day.getDay()) {
-            prev.push(next);
-        }
-        return prev;
-    }, [])
-}
-
-export function getMeal(type: string, meals: MealModel[]): MealModel | undefined {
-    return meals.find((meal) => meal.type == type)
-}
-
-const TIMEOUT_MS = 1000;
 
 export type MealSlot = MealModel & {
     onChange?: (meal: MealModel) => void
     timeout?: number
 };
 
-export const MealSlot: React.FC<MealSlot> = memo(props => {
+const TIMEOUT_MS = 1000;
+export const MealSlot: React.FC<MealSlot> = (props) => {
     const {
         date,
         name,
@@ -77,6 +63,4 @@ export const MealSlot: React.FC<MealSlot> = memo(props => {
             </div>
         </div>
     );
-});
-
-MealSlot.displayName = "Meal Slot";
+};
