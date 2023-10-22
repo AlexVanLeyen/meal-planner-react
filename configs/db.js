@@ -29,7 +29,10 @@ function connect(config) {
     }
 
     const url = getUrl(config)
-    mongoose.connection.on('disconnected', () => logger.error('Unexpected disconnect from database.'));
+    mongoose.connection.once('connected', () => logger.info('Connected to database.'));
+    mongoose.connection.on('connecting', () => logger.info('Attempting to connect to database...'));
+    mongoose.connection.on('reconnected', () => logger.info('Reconnected to database.'));
+    mongoose.connection.on('disconnected', () => logger.warning('Unexpected disconnect from database.'));
     mongoose.connection.on('error', error => logger.error(error));    
     return mongoose.connect(url);
 }

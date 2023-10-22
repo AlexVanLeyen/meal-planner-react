@@ -29,18 +29,18 @@ app.get("*", function(_, res) {
     );
 });
 
-app.listen(PORT, async () => {
+app.listen(PORT, () => {
     try {
-        logger.info("Attempting to connect to database...");
-        await connect({
+        connect({
             host: DB_HOST,
             username: DB_USERNAME,
             password: DB_PASSWORD,
             port: DB_PORT
         });
-        logger.info(`App listening @ http://localhost:${PORT}`);
     } catch (error) {
         logger.error(error);
         process.exit(1);
     }
+
+    logger.info(`App listening @ http://localhost:${PORT}`);
 });
