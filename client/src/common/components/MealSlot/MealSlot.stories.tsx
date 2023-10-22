@@ -4,7 +4,7 @@ import { MealSlot } from './index';
 
 const meta = {
     title: 'Components/PlanTable/MealSlot',
-    component: MealSlot
+    component: MealSlot,
 } satisfies Meta<typeof MealSlot>;
 
 export default meta;
