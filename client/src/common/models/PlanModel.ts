@@ -1,12 +1,14 @@
+import { isSameDay } from "date-fns";
+
 export type NoteModel = {
     message: string;
 }
 
 export type MealModel = {
-    date: Date;
+    date: string;
     type: string;
     name: string;
-    notes: NoteModel[];
+    note: NoteModel;
 }
 
 export type PlanAuthor = {
@@ -20,13 +22,8 @@ export type PlanModel = {
     meals: MealModel[];
 }
 
-export function getMealsForDay(day: Date, meals:MealModel[]): MealModel[] {
-    return meals.reduce<MealModel[]>((prev, next) => {
-        if (new Date(next.date).getDay() == day.getDay()) {
-            prev.push(next);
-        }
-        return prev;
-    }, []);
+export function getMealsForDay(day: string, meals:MealModel[]): MealModel[] {
+    return meals.filter((meal) => isSameDay(new Date(meal.date), new Date(day)))
 }
 
 export function getMeal(type: string, meals: MealModel[]): MealModel | undefined {

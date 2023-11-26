@@ -1,12 +1,12 @@
 /* eslint-disable */
 import React, { useState } from 'react';
-import { startOfWeek, eachDayOfInterval, addDays, format } from 'date-fns';
+import { startOfWeek, eachDayOfInterval, addDays, format, startOfDay } from 'date-fns';
 import { MealSlot } from '@/common/components/MealSlot';
 import { getMeal, getMealsForDay } from '@/common/models/PlanModel';
 import { PlanModel, MealModel } from '@/common/models';
 
 export interface Options {
-    date?: Date,
+    date?: Date | string,
     mealTypes?: string[]
 }
 
@@ -29,12 +29,12 @@ function createPlan(): PlanModel {
 export const PlanTable: React.FC<PlanTable> = props => {
     const {
         plan = createPlan(),
-        date = new Date(),
+        date = new Date().toISOString(),
         onChange,
         mealTypes
     } = props;
 
-    const [firstDay] = useState(startOfWeek(date, { weekStartsOn: 1 }));
+    const [firstDay] = useState(startOfWeek(new Date(date), { weekStartsOn: 1 }));
     const daysOfWeek = eachDayOfInterval({ start: firstDay, end: addDays(firstDay, 6) });
 
     return (
@@ -49,7 +49,7 @@ export const PlanTable: React.FC<PlanTable> = props => {
                 </thead>
                 <tbody>
                 {daysOfWeek.map((day) => {
-                    const meals = getMealsForDay(day, plan.meals);
+                    const meals = getMealsForDay(day.toISOString(), plan.meals);
                     const dayOfWeek = format(day, 'EEE');
                     const dayOfMonth = format(day, 'd');
                     
@@ -64,9 +64,9 @@ export const PlanTable: React.FC<PlanTable> = props => {
                                     mealTypes?.map((type: string) => {
                                         const meal = getMeal(type, meals) ?? { 
                                             type,
-                                            date: day,
+                                            date: new Date(day).toISOString(),
                                             name: "",
-                                            notes: [] 
+                                            note: { message: "" }
                                         };
                                         return <MealSlot
                                             key={`${dayOfWeek}-${type}`}

@@ -13,7 +13,7 @@ export const MealSlot: React.FC<MealSlot> = (props) => {
     const {
         date,
         name,
-        notes,
+        note,
         onChange,
         timeout = TIMEOUT_MS,
         type
@@ -31,10 +31,10 @@ export const MealSlot: React.FC<MealSlot> = (props) => {
 
     const emitChange = useCallback(
         (name: string) => setTimeout(
-            () => onChange?.({ date, type, name, notes }),
+            () => onChange?.({ date, type, name, note }),
             timeout
         ),
-        [date, type, notes, timeout, onChange]
+        [date, type, note, timeout, onChange]
     );
     
     useEffect(() => {
@@ -56,10 +56,7 @@ export const MealSlot: React.FC<MealSlot> = (props) => {
                 </button>
             </div>
             <div className="notes" data-show={isShowingNotes}>
-                <button className="btn btn-sm primary">+ Add Note</button>
-                { props.notes.length > 0 && props.notes.map((note, index) => (
-                    <Note {...note} key={index}/>
-                ))}
+                <Note {...note} />
             </div>
         </div>
     );
