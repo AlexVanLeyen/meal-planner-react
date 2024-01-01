@@ -167,14 +167,25 @@ th {
     @apply bg-tertiary;
     @apply p-xs;
     @apply flex items-start;
+    @apply gap-2;
 
     .icon {
-        @apply w-16;
+        @apply self-start;
         @apply pt-1;
     }
 
     .message {
         @apply text-sm;
+        @apply px-2;
+    }
+
+    textarea.message {
+        margin-bottom: -5.5px;
+        resize: none;
+    }
+
+    .editable {
+        @apply flex-grow;
     }
 }
 

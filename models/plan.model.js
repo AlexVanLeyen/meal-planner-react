@@ -10,9 +10,9 @@ const planSchema = new mongoose.Schema({
         date: { type: Date, required: true },
         type: { type: String, required: true }, 
         name: { type: String, required: true },
-        notes: { type: [{
+        note: { type: {
             message: { type: String, required: true }
-        }], required: true }
+        }, required: true }
     }], required: true }
 });
 
