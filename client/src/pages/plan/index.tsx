@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { add, sub } from 'date-fns';
 import { mealTypes } from '@/config';
 import { PlanTable } from '@/common/components/PlanTable';
 import { Navigate, useLocation, useParams, useSubmit } from 'react-router-dom';
@@ -7,18 +8,19 @@ import { Loading } from '@/common/components/Loading';
 import { Editable } from '@/common/components/Editable';
 import { MealModel } from '@/common/models';
 import { useDebouncedValue } from '@/common/hooks/useDebouncedValue';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 
 const Plan: React.FC = () => {
     const submit = useSubmit();
     const location = useLocation();
-    const [ date ] = useState<string|undefined>();
+    const [ date, setDate ] = useState<string|undefined>();
     const hasMounted = useRef(false);
     const params = useParams();
     const { data: plan, error, isLoading } = useMealPlanQuery(params.identifier ?? "");
     const { meals = [] } = plan ?? {}
     const [ title, setTitle ] = useState("");
     const debouncedTitle = useDebouncedValue(title)
-    
+
     const onChangePlan = useCallback<(meal: MealModel) => void>(async (modifiedMeal) => {
         const modifiedPlan = { meals };
         const index = meals.findIndex(
@@ -68,20 +70,41 @@ const Plan: React.FC = () => {
 
     return (
         <div className='page'>
-            <Editable
-                element={(
-                    <h1 className="title">{title || "My Plan"}</h1>
-                )}
-                editElement={(
-                    <input
-                        autoFocus
-                        defaultValue={title} 
-                        type="text"
-                        className="title"
-                        onChange={onChangeTitle}
-                    />
-                )}
-            />
+            <div className='flex gap-4 justify-between'>
+                <Editable
+                    className='flex-grow'
+                    element={(
+                        <h1 className="title">{title || "My Plan"}</h1>
+                    )}
+                    editElement={(
+                        <input
+                            autoFocus
+                            defaultValue={title} 
+                            type="text"
+                            className="title"
+                            onChange={onChangeTitle}
+                        />
+                    )}
+                />
+                <div className='flex gap-1'>
+                    <button
+                        title='Previous' 
+                        className='btn btn-sm'
+                        onClick={() => setDate((date) => {
+                            const _date = date ? new Date(date) : new Date();
+                            return sub(new Date(_date), { weeks: 1 }).toISOString();
+                        })
+                    }><FaChevronLeft /></button>
+                    <button
+                        title='Next'
+                        className='btn btn-sm'
+                        onClick={() => setDate((date) => {
+                            const _date = date ? new Date(date) : new Date();
+                            return add(_date, { weeks: 1 }).toISOString();
+                        })
+                    }><FaChevronRight /></button>
+                </div>
+            </div>
             { plan && (
                 <PlanTable 
                     mealTypes={mealTypes}

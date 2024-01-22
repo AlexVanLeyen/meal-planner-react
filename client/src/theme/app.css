@@ -34,6 +34,18 @@
             @apply bg-primary;
         }
 
+        &:not(&.primary) {
+            &:hover {
+                @apply border;
+                @apply border-primary;
+            }
+
+            &:active {
+                @apply bg-primary;
+                @apply text-secondary;
+            }
+        }
+
         &.btn-sm {
             @apply py-0 px-sm;
             @apply text-sm;
