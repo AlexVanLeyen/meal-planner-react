@@ -25,7 +25,7 @@ export const Editable: React.FC<Editable> = props => {
                 {props.editElement}
             </div>
         ) : (
-            <div onClick={onClick} className="text-container">
+            <div onClick={onClick} className="text-container cursor-default">
                 {props.element}
             </div>
         )}
