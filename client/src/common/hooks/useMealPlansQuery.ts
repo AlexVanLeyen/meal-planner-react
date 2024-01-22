@@ -1,4 +1,4 @@
-import { QueryClient, useQuery } from 'react-query';
+import { QueryClient, useQuery } from '@tanstack/react-query';
 import { PlanModel, withIdentifier } from '@/common/models';
 import request from '@/services/request';
 import { api } from '@/config';
@@ -21,7 +21,7 @@ export const loader = (queryClient: QueryClient): LoaderFunction =>
     async () => {
         const query = plansQuery();
         return (
-            queryClient.getQueriesData(query.queryKey) ??
+            queryClient.getQueriesData({ queryKey:  query.queryKey }) ??
             (await queryClient.fetchQuery(query))
         );
     };

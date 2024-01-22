@@ -8,7 +8,7 @@ const Plans = () => {
     const submit = useSubmit();
     const { data: plans, error, isLoading } = useMealPlansQuery();
     const {
-        isLoading: isCreateLoading,
+        isPending: isCreateLoading,
         status: createStatus,
         data: createData
     } = useMealPlanCreateMutation(defaultPlan);
@@ -53,7 +53,7 @@ const Plans = () => {
                     <menu>
                     {plans.map(plan => (
                         <li key={plan._id}>
-                            <Link to={`/plans/${plan._id}`}>{plan.name}</Link>
+                            <Link to={`/plans/${plan._id}`}>{!plan.name ? "No name plan": plan.name}</Link>
                             <p>{plan.description}</p>
                         </li>
                     ))}

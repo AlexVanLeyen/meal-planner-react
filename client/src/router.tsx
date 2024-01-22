@@ -4,7 +4,7 @@ import {
     Outlet,
     createBrowserRouter,
 } from 'react-router-dom';
-import { QueryClient } from 'react-query';
+import { QueryClient } from '@tanstack/react-query';
 import MainLayout from "@/layouts/MainLayout";
 import { loader as PlanLoader } from '@/common/hooks/useMealPlanQuery';
 import { loader as PlansLoader } from '@/common/hooks/useMealPlansQuery';

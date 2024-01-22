@@ -1,5 +1,6 @@
-import { QueryClient, useMutation } from "react-query";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 import { PlanModel, withIdentifier } from "@/common/models";
+import { executeMutation } from "@/common/utils/reactQueryUtils";
 import Request from "@/services/request"
 import { api } from "@/config";
 import { ActionFunction, ActionFunctionArgs, redirect } from "react-router-dom";
@@ -49,7 +50,9 @@ export const actionNew = (queryClient: QueryClient): ActionFunction =>
     async ({ request }) => {
         if (request.method !== "POST") throw request; 
         const mutation = createMutation(defaultPlan);
-        const newPlan = await queryClient.executeMutation(mutation);
+
+        const newPlan = await executeMutation(queryClient, mutation)
+            
         return redirect(`/plans/${newPlan._id}`);
     };
 
@@ -69,13 +72,13 @@ const PlanAction: PlanAction  = {
         // there has to be a better way to handle this.
         const plan = JSON.parse(formData.get("plan") as string) as Partial<PlanModel>;
         const mutation = updateMutation(id, plan);
-        return await queryClient.executeMutation(mutation);
+        return await executeMutation(queryClient, mutation);
     },
     DELETE: async (queryClient, { request, params }) => {
         const id = params.identifier;
         if (!id) throw request;
         const mutation = deleteMutation(id);
-        return await queryClient.executeMutation(mutation);
+        return await executeMutation(queryClient, mutation);
     }
 };
 
