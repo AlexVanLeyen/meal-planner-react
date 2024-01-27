@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "cd client && npm install",
+    "postinstall": "cd client && npm install --omit=dev",
     "postbuild": "cd client && npm run build",
     "watch:client": "cd client && npm run build -- --watch",
     "dev": "nodemon index.js",
