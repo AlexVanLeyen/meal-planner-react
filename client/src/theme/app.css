@@ -13,12 +13,21 @@
 
     input[type=text] {
         @apply bg-transparent;
-        @apply border border-solid border-secondary rounded;
         @apply text-sm;
+
         &:focus-visible {
-            @apply outline-0;    
+            @apply outline-none;
+            @apply border border-solid border-secondary rounded;
         }
-        
+    }
+
+    textarea {
+        @apply bg-transparent;
+        @apply text-sm;
+
+        &:focus-visible {
+            @apply outline-none;
+        }
     }
 }
 
@@ -192,20 +201,9 @@ th {
     }
 
     textarea.message {
-        margin-bottom: -5.5px;
         resize: none;
     }
 
-    .editable {
-        @apply flex-grow;
-    }
-}
-
-.editable {
-    & * {
-        @apply w-full;
-        @apply bg-transparent;
-    }
 }
 
 label {

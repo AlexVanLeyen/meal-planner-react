@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { Note } from "../Note";
-import { Editable } from '../Editable';
 import { MealModel } from '@/common/models'
 
 export type MealSlot = MealModel & {
     onChange?: (meal: MealModel) => void
+    placeholder?: string
     timeout?: number
 };
 
@@ -14,6 +14,7 @@ export const MealSlot: React.FC<MealSlot> = (props) => {
         name,
         note,
         onChange,
+        placeholder,
         type
     } = props;
     const [isShowingNotes, setIsShowNotes] = useState(false);
@@ -45,9 +46,12 @@ export const MealSlot: React.FC<MealSlot> = (props) => {
     return (
         <div className="meal">
             <div className="slot" data-type={props.type}>
-                <Editable className="name"
-                    editElement={(<input autoFocus type="text" onChange={handleOnChangeName} defaultValue={props.name}/>)}
-                    element={(<>{props.name}</>)}
+                <input
+                    type="text"
+                    className="flex-grow"
+                    onChange={handleOnChangeName}
+                    defaultValue={props.name}
+                    placeholder={placeholder}
                 />
                 <button type="button" onClick={handleClickOpenNote}>
                     {isShowingNotes ? "-" : "+" }

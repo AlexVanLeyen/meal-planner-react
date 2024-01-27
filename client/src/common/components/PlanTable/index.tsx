@@ -1,13 +1,17 @@
-/* eslint-disable */
 import React, { useMemo } from 'react';
 import { startOfWeek, eachDayOfInterval, addDays, format } from 'date-fns';
 import { MealSlot } from '@/common/components/MealSlot';
 import { getMeal, getMealsForDay } from '@/common/models/PlanModel';
 import { PlanModel, MealModel } from '@/common/models';
 
+export type MealType = {
+    key: string,
+    label?: string
+}
+
 export interface Options {
     date?: Date | string,
-    mealTypes?: string[]
+    mealTypes?: MealType[]
 }
 
 export type PlanTable = Options & {
@@ -58,15 +62,16 @@ export const PlanTable: React.FC<PlanTable> = props => {
                                 { 
                                     // If meal types are defined, render meals in order of
                                     // meal types.
-                                    mealTypes?.map((type: string) => {
-                                        const meal = getMeal(type, meals) ?? { 
-                                            type,
+                                    mealTypes?.map((type: MealType) => {
+                                        const meal = getMeal(type.key, meals) ?? { 
+                                            type: type.key,
                                             date: new Date(day).toISOString(),
                                             name: "",
                                             note: { message: "" }
                                         };
                                         return <MealSlot
-                                            key={`${mealDate}-${type}`}
+                                            key={`${mealDate}-${type.key}`}
+                                            placeholder={type.label}
                                             {...meal}
                                             onChange={onChange}
                                         />;

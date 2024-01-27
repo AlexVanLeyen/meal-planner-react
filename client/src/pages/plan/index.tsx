@@ -5,7 +5,6 @@ import { PlanTable } from '@/common/components/PlanTable';
 import { Navigate, useLocation, useParams, useSubmit } from 'react-router-dom';
 import { useMealPlanQuery } from '@/common/hooks/useMealPlanQuery';
 import { Loading } from '@/common/components/Loading';
-import { Editable } from '@/common/components/Editable';
 import { MealModel } from '@/common/models';
 import { useDebouncedValue } from '@/common/hooks/useDebouncedValue';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
@@ -71,20 +70,12 @@ const Plan: React.FC = () => {
     return (
         <div className='page'>
             <div className='flex gap-4 justify-between'>
-                <Editable
-                    className='flex-grow'
-                    element={(
-                        <h1 className="title">{title || "My Plan"}</h1>
-                    )}
-                    editElement={(
-                        <input
-                            autoFocus
-                            defaultValue={title} 
-                            type="text"
-                            className="title"
-                            onChange={onChangeTitle}
-                        />
-                    )}
+                <input
+                    type="text"
+                    defaultValue={title} 
+                    className="title flex-grow"
+                    onChange={onChangeTitle}
+                    placeholder="Plan Title"
                 />
                 <div className='flex gap-1'>
                     <button
