@@ -7,6 +7,7 @@ const logger = require("./logger");
  * @property {string} host example localhost, myapp.com, 0.0.0.0
  * @property {string} username
  * @property {string} password
+ * @property {string} [uri] The full uri to the database. If this is provided, the other properties are ignored.
  * @property {string} [port] The default port is 27017
  */
 
@@ -14,7 +15,11 @@ const logger = require("./logger");
  * @param {DBConfig} config 
  * @returns {string}
  */
-function getUrl({host, username, password, port="27017"}) {
+function getUrl({host, username, password, uri, port="27017"}) {
+    if (uri) {
+        return uri;
+    }
+
     return `mongodb://${username}:${password}@${host}:${port}`;
 }
 

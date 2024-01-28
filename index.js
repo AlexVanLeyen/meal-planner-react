@@ -12,6 +12,17 @@ const DB_HOST = process.env.DB_HOST;
 const DB_USERNAME = process.env.DB_USERNAME;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_PORT = process.env.DB_PORT;
+const DB_URI = process.env.DB_URI;
+
+const dbConfig = DB_URI ? {
+    uri: DB_URI
+} : {
+    host: DB_HOST,
+    username: DB_USERNAME,
+    password: DB_PASSWORD,
+    port: DB_PORT
+};
+
 // ==
 
 const app = express();
@@ -30,13 +41,10 @@ app.get("*", function(_, res) {
 });
 
 app.listen(PORT, () => {
+    logger.info("Attempting to connect to the database...");
+
     try {
-        connect({
-            host: DB_HOST,
-            username: DB_USERNAME,
-            password: DB_PASSWORD,
-            port: DB_PORT
-        });
+        connect(dbConfig);
     } catch (error) {
         logger.error(error);
         process.exit(1);
