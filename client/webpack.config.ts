@@ -19,7 +19,7 @@ const config = ():Configuration => {
     }, {});
 
     return {
-        mode: "development",
+        mode: "production",
         entry: "./src/index.tsx",
         output: {
             publicPath: "/",
