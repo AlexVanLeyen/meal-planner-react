@@ -10,9 +10,15 @@ interface Configuration extends WebpackConfiguration {
     devServer?: WebpackDevServerConfiguration;
 }
 
+const shellEnvironmentVariables = Object.entries(process.env).reduce<{[key: string]: string | boolean | number | undefined}>((acc, [key, value]) => {
+    if (key.startsWith('REACT_APP_') === false) return acc;
+    acc[key] = value;
+    return acc;
+}, {});
+
 const config = ():Configuration => {
     // import environment variables
-    const env = dotenv.config().parsed ?? {};
+    const env = { ...shellEnvironmentVariables, ...dotenv.config().parsed ?? {} }
     const envKeys = Object.keys(env).reduce<Record<string, string>>((prev, next) => {
         prev[`process.env.${next}`] = JSON.stringify(env[next]);
         return prev;
