@@ -5,7 +5,7 @@ import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-serv
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
-
+console.log("process.env", process.env);
 interface Configuration extends WebpackConfiguration {
     devServer?: WebpackDevServerConfiguration;
 }
@@ -15,7 +15,7 @@ const shellEnvironmentVariables = Object.entries(process.env).reduce<{[key: stri
     acc[key] = value;
     return acc;
 }, {});
-
+ 
 const config = ():Configuration => {
     // import environment variables
     const env = { ...shellEnvironmentVariables, ...dotenv.config().parsed ?? {} }
@@ -23,6 +23,8 @@ const config = ():Configuration => {
         prev[`process.env.${next}`] = JSON.stringify(env[next]);
         return prev;
     }, {});
+
+    console.log(envKeys);
 
     return {
         mode: "production",
