@@ -1,6 +1,5 @@
-declare const REACT_APP_VERSION: string;
-
-export const version = REACT_APP_VERSION ?? "undefined";
+import { MEAL_PLANNER_VERSION } from "@/config/env";
+const version: string = MEAL_PLANNER_VERSION ?? "undefined";
 
 export default {
     version
