@@ -52,3 +52,5 @@ app.listen(PORT, () => {
 
     logger.info(`App listening @ http://localhost:${PORT}`);
 });
+
+module.exports = app;
