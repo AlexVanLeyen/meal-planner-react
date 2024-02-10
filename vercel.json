@@ -3,7 +3,7 @@
     "builds": [
         {
             "src": "index.js",
-            "use": "@now/node"
+            "use": "@vercel/node"
         }
     ],
     "routes": [
@@ -11,5 +11,8 @@
             "src": "/.*",
             "dest": "index.js"
         }
-    ]
+    ],
+    "installCommand": "npm install",
+    "buildCommand": "npm run build",
+    "outputDirectory": "."
 }
