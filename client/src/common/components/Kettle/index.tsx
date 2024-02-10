@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export const Kettle = () => {
-    return <span>I&apos;m a kettle</span>
-}
+  return <span>I&apos;m a kettle</span>;
+};

@@ -2,7 +2,6 @@
 
 Simple home-made meal planning app.
 
-
 ## Getting Started
 
 ```sh

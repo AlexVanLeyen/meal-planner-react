@@ -3,235 +3,231 @@
 @tailwind utilities;
 
 @layer base {
-    html, body {
-        @apply h-screen;
-        @apply overflow-hidden;
-        @apply relative;
-        @apply bg-background;
-        @apply text-primary;
+  html,
+  body {
+    @apply h-screen;
+    @apply overflow-hidden;
+    @apply relative;
+    @apply bg-background;
+    @apply text-primary;
+  }
+
+  input[type="text"] {
+    @apply bg-transparent;
+    @apply text-sm;
+
+    &:focus-visible {
+      @apply outline-none;
+      @apply border border-solid border-secondary rounded;
     }
+  }
 
-    input[type=text] {
-        @apply bg-transparent;
-        @apply text-sm;
+  textarea {
+    @apply bg-transparent;
+    @apply text-sm;
 
-        &:focus-visible {
-            @apply outline-none;
-            @apply border border-solid border-secondary rounded;
-        }
+    &:focus-visible {
+      @apply outline-none;
     }
-
-    textarea {
-        @apply bg-transparent;
-        @apply text-sm;
-
-        &:focus-visible {
-            @apply outline-none;
-        }
-    }
+  }
 }
 
 @layer components {
-    .btn {
-        @apply rounded;
-        @apply p-sm;
-        @apply w-fit;
-        @apply block;
+  .btn {
+    @apply rounded;
+    @apply p-sm;
+    @apply w-fit;
+    @apply block;
 
-        &.primary {
-            @apply text-tertiary;
-            @apply bg-primary;
-        }
-
-        &:not(&.primary) {
-            &:hover {
-                @apply border;
-                @apply border-primary;
-            }
-
-            &:active {
-                @apply bg-primary;
-                @apply text-secondary;
-            }
-        }
-
-        &.btn-sm {
-            @apply py-0 px-sm;
-            @apply text-sm;
-        }
+    &.primary {
+      @apply text-tertiary;
+      @apply bg-primary;
     }
+
+    &:not(&.primary) {
+      &:hover {
+        @apply border;
+        @apply border-primary;
+      }
+
+      &:active {
+        @apply bg-primary;
+        @apply text-secondary;
+      }
+    }
+
+    &.btn-sm {
+      @apply py-0 px-sm;
+      @apply text-sm;
+    }
+  }
 }
 
 #root {
-    @apply h-full;
-    @apply flex;
+  @apply h-full;
+  @apply flex;
 }
 
 #navigation {
-    @apply border-r border-solid border-primary;
-    @apply bg-background;
-    
-    .container {
-        @apply p-sm;
-        @apply flex;
-        @apply flex-col;
-        @apply h-full;
-        @apply justify-between;
-        @apply items-center;
-    }
+  @apply border-r border-solid border-primary;
+  @apply bg-background;
 
-    .version {
-        &::before {
-            content: "v";
-            @apply pr-xs;
-        }
-    }
+  .container {
+    @apply p-sm;
+    @apply flex;
+    @apply flex-col;
+    @apply h-full;
+    @apply justify-between;
+    @apply items-center;
+  }
 
-    menu {
-        @apply flex;
-        @apply flex-col;
-        @apply items-start;
-        @apply gap-sm;
+  .version {
+    &::before {
+      content: "v";
+      @apply pr-xs;
     }
+  }
 
-    li a {
-        @apply flex;
-        @apply gap-sm;
-        @apply items-center;
-    }
+  menu {
+    @apply flex;
+    @apply flex-col;
+    @apply items-start;
+    @apply gap-sm;
+  }
+
+  li a {
+    @apply flex;
+    @apply gap-sm;
+    @apply items-center;
+  }
 }
 
 #main-content {
-    @apply grow;
+  @apply grow;
 }
 
 .page {
-    @apply container;
-    @apply flex flex-col gap-md;
-    @apply min-w-full h-full;
-    @apply p-md;
-    @apply overflow-auto;
+  @apply container;
+  @apply flex flex-col gap-md;
+  @apply min-w-full h-full;
+  @apply p-md;
+  @apply overflow-auto;
 
-    .title {
-        @apply text-3xl;
-        @apply font-extrabold;
-        @apply tracking-tight;
-
-    }
-        
+  .title {
+    @apply text-3xl;
+    @apply font-extrabold;
+    @apply tracking-tight;
+  }
 }
 
 .table-container {
-    @apply border-2 border-solid border-secondary rounded-lg;
+  @apply border-2 border-solid border-secondary rounded-lg;
 }
 
 thead {
-    @apply font-bold;
+  @apply font-bold;
 }
 
 tr:not(:last-of-type) td {
-    @apply border-b-2;
+  @apply border-b-2;
 }
 
-td, th {
-    @apply align-text-top;
-    @apply border-secondary border-solid;
+td,
+th {
+  @apply align-text-top;
+  @apply border-secondary border-solid;
 
-    &:not(:last-of-type) {
-        @apply border-r-2
-    }
+  &:not(:last-of-type) {
+    @apply border-r-2;
+  }
 }
 
 th {
-    @apply p-2;
-    @apply border-b-2
+  @apply p-2;
+  @apply border-b-2;
 }
 
 .meal {
-    @apply p-xs;
-    @apply flex flex-col gap-xs;
+  @apply p-xs;
+  @apply flex flex-col gap-xs;
 
-    &:not(:last-of-type) {
-        @apply border-b border-secondary border-dashed;
+  &:not(:last-of-type) {
+    @apply border-b border-secondary border-dashed;
+  }
+
+  .slot {
+    @apply flex justify-between items-center gap-xs;
+  }
+
+  .slot::before {
+    content: attr(data-type);
+    @apply capitalize font-bold text-secondary;
+    @apply mr-xs;
+  }
+
+  .name {
+    @apply grow;
+    @apply flex self-stretch items-stretch;
+  }
+
+  .notes {
+    @apply hidden;
+
+    &[data-show="true"] {
+      @apply block;
     }
+  }
 
-    .slot {
-        @apply flex justify-between items-center gap-xs;
-    }
-
-    .slot::before {
-        content: attr(data-type);
-        @apply capitalize font-bold text-secondary;
-        @apply mr-xs;
-    }
-
-    .name {
-        @apply grow;
-        @apply flex self-stretch items-stretch;
-    }
-
-    .notes {
-        @apply hidden;
-
-        &[data-show=true] {
-            @apply block;
-        }
-    }
-
-    .empty {
-        @apply italic;
-    }
+  .empty {
+    @apply italic;
+  }
 }
 
 .note {
-    @apply border border-primary rounded;
-    @apply bg-tertiary;
-    @apply p-xs;
-    @apply flex items-start;
-    @apply gap-2;
+  @apply border border-primary rounded;
+  @apply bg-tertiary;
+  @apply p-xs;
+  @apply flex items-start;
+  @apply gap-2;
 
-    .icon {
-        @apply self-start;
-        @apply pt-1;
-    }
+  .icon {
+    @apply self-start;
+    @apply pt-1;
+  }
 
-    .message {
-        @apply text-sm;
-        @apply px-2;
-    }
+  .message {
+    @apply text-sm;
+    @apply px-2;
+  }
 
-    textarea.message {
-        resize: none;
-    }
-
+  textarea.message {
+    resize: none;
+  }
 }
 
 label {
-    @apply font-bold;
-    @apply flex gap-xs justify-start items-center;
+  @apply font-bold;
+  @apply flex gap-xs justify-start items-center;
 }
 
-
 .select {
-    @apply border-2 border-solid border-secondary rounded;
-    @apply p-xs;
+  @apply border-2 border-solid border-secondary rounded;
+  @apply p-xs;
 
-    
-    select {
-        @apply border-0;
-        @apply text-primary font-normal capitalize;
-        @apply bg-background;
-        @apply outline-none;
-    }
-
+  select {
+    @apply border-0;
+    @apply text-primary font-normal capitalize;
+    @apply bg-background;
+    @apply outline-none;
+  }
 }
 
 .loading {
-    @apply flex items-center justify-items-center;
-    @apply h-full;
+  @apply flex items-center justify-items-center;
+  @apply h-full;
 
-    .icon {
-        @apply animate-bounce;
-        @apply w-8 h-8;
-    }
+  .icon {
+    @apply animate-bounce;
+    @apply w-8 h-8;
+  }
 }

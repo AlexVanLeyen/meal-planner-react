@@ -1,6 +1,6 @@
 [
-    { "key": "BB", "label": "Baby Breakfast" },
-    { "key": "BL", "label": "Baby Lunch" },
-    { "key": "BD", "label": "Baby Dinner"},
-    { "key": "AD", "label": "Adult Dinner"}
+  { "key": "BB", "label": "Baby Breakfast" },
+  { "key": "BL", "label": "Baby Lunch" },
+  { "key": "BD", "label": "Baby Dinner" },
+  { "key": "AD", "label": "Adult Dinner" }
 ]

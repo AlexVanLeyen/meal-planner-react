@@ -5,7 +5,7 @@ export const MEAL_PLAN: string = `${BASE}/plans`;
 export const MEAL_PLANS: string = `${BASE}/plans`;
 
 export default {
-    BASE,
-    MEAL_PLAN,
-    MEAL_PLANS
-}
+  BASE,
+  MEAL_PLAN,
+  MEAL_PLANS,
+};

@@ -1,25 +1,26 @@
 [
-    {
-        "date": "2023-07-03",
-        "meals": [
-            {
-                "type": "breakfast",
-                "name": "buttered toast, avacado, omlette",
-                "notes": [
-                    { "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ultricies a nisi a scelerisque. Mauris et pharetra nulla. Praesent tincidunt libero a nisl dapibus, nec pellentesque neque mattis. Nulla facilisi. Nunc sagittis odio ultrices tellus aliquet, ut aliquet lorem imperdiet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti. Donec mattis commodo volutpat. In in nisi purus. Nam tempus pulvinar pharetra. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent ac iaculis nulla, a luctus sapien. In at sagittis erat." }
-                ]  
-            },
-            {
-                "type": "lunch",
-                "name": "spaghetti",
-                "notes": []
-            },
-            {
-                "type": "dinner",
-                "name": "chicken soup",
-                "notes": []
-
-            }
+  {
+    "date": "2023-07-03",
+    "meals": [
+      {
+        "type": "breakfast",
+        "name": "buttered toast, avacado, omlette",
+        "notes": [
+          {
+            "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ultricies a nisi a scelerisque. Mauris et pharetra nulla. Praesent tincidunt libero a nisl dapibus, nec pellentesque neque mattis. Nulla facilisi. Nunc sagittis odio ultrices tellus aliquet, ut aliquet lorem imperdiet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti. Donec mattis commodo volutpat. In in nisi purus. Nam tempus pulvinar pharetra. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent ac iaculis nulla, a luctus sapien. In at sagittis erat."
+          }
         ]
-    }
+      },
+      {
+        "type": "lunch",
+        "name": "spaghetti",
+        "notes": []
+      },
+      {
+        "type": "dinner",
+        "name": "chicken soup",
+        "notes": []
+      }
+    ]
+  }
 ]

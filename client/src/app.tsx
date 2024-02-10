@@ -1,5 +1,5 @@
 import React from "react";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter } from "./router";
 import "@/theme/app.css";
 import { Loading } from "./common/components/Loading";
@@ -9,11 +9,11 @@ const queryClient = new QueryClient();
 const router = createRouter(queryClient);
 
 const App = () => (
-    <React.Suspense fallback={<Loading />}>
-        <QueryClientProvider client={queryClient} >
-            <RouterProvider router={router} />
-        </QueryClientProvider>
-    </React.Suspense>
+  <React.Suspense fallback={<Loading />}>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  </React.Suspense>
 );
 
-export default App
+export default App;
