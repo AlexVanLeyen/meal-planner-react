@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require("tailwindcss/colors");
+const colors = await import("tailwindcss/colors");
 
-const { createThemes } = require("tw-colors");
+const { createThemes } = await import("tw-colors");
 
 export default {
   content: [
