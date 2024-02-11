@@ -3,9 +3,9 @@ const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
 
-const logger = require("./configs/logger");
-const connect = require("./configs/db");
-const mealPlanController = require("./controllers/plan.controller")
+const logger = require("../configs/logger");
+const connect = require("../configs/db");
+const mealPlanController = require("../controllers/plan.controller")
 const PORT = process.env.port ?? 3000;
 // == Database Config ==
 const DB_HOST = process.env.DB_HOST;

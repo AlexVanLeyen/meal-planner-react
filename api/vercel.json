@@ -1,13 +1,13 @@
 {
     "functions": {
-        "index.js": {
+        "api/*.js": {
             "runtime": "nodejs@20.10.0"
         }
     },
     "rewrites": [
         {
-            "source": "/(.*)",
-            "destination": "index.js"
+            "source": "/api/(.*)",
+            "destination": "/api"
         }
     ]
 }
