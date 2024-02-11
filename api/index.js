@@ -29,7 +29,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/plans", mealPlanController);
+app.get("/", (_, res) => { res.send("API Online") })
+app.use("/plans", mealPlanController);
 
 app.listen(PORT, () => {
     logger.info("Attempting to connect to the database...");
