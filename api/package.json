@@ -4,10 +4,11 @@
   "description": "Meal Planning app",
   "private": true,
   "main": "index.js",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "start": "node index.js",
-    "build": "cd client && npm install && npm run build",
-    "watch:client": "cd client && npm run build -- --watch",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "database": "cd .dev && docker-compose up"
